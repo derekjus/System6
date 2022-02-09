@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html lang="en-US" class="no-js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" media="screen" href="res/css/style.css"/>
+<title>System</title>
+<meta name="description" content="Mac Os X Lion with CSS3 Experiment - I wanted to create with only use of CSS3 the boot, the login page and finally the desktop of the Mac OS X Lion." />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="res/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="res/js/modernizr.js"></script>
+<script type="text/javascript" src="res/js/fix-and-clock.js"></script>
+<link rel="canonical" href="http://www.alessioatzeni.com/mac-osx-lion-css3/" />
+
+<script type="text/javascript">
+    function SSO() {
+  document.getElementById("sss").style.width = "30%";
+}
+
+function SSC() {
+  document.getElementById("sss").style.width = "0%";
+}
+
+
+
+function FFO() {
+  document.getElementById("fff").style.width = "30%";
+}
+
+function FFC() {
+  document.getElementById("fff").style.width = "0%";
+}
+
+
+
+function GGO() {
+  document.getElementById("ggg").style.width = "30%";
+}
+
+function GGC() {
+  document.getElementById("ggg").style.width = "0%";
+}
+</script>
+
+
+<style type="text/css">
+    
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
+.mmmm{
+background-color: midnightblue;
+border-bottom: 1px solid white;
+color:white;
+padding: 3px 3px 3px 3px;
+position: fixed;
+top:0;
+left:0;
+width:100%;
+}
+#a{
+color:white;
+font-size:20px;
+font-family:arial;
+text-decoration:none;
+margin-left:10px;
+}
+
+#myProgress {
+  width:150px;
+  background-color: black;
+  border:1px solid white;
+  border-radius:6px;
+}
+
+#myBar {
+  width: 1%;
+  height: 6px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+</style>
+
+<script>
+var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 90);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
+</script>
+
+</head>
+
+<body onload="move()">
+
+<!-- FAIL -->
+<div id="fail">
+	<div class="fail-browser-logo">
+    	<img src="res/img/apple-logo-login.png" alt="Mac OS X" />
+    </div>
+    <div class="fail-browser">
+<img src="">
+    </div>
+</div>
+
+<!-- BOOT -->
+<div id="pageLoading">
+	<div class="loading">
+		<div class="apple-logo"></div>
+        <div class="spinner">
+            <div id="myProgress">
+            <div id="myBar"></div>
+        </div>
+        </div>
+	</div>
+</div>
+
+<!-- LOGIN -->
+<div id="pageLogin">
+	<header id="headlogin">
+		<nav id="menu-dx-login">
+    	<ul>
+   			<li class="wireless"></li>
+    		<li class="time">
+    		<ul>
+				<li class="hours"> </li>
+    			<li class="point">:</li>
+    			<li class="min"> </li>
+        	</ul>
+    		</li>
+		</ul>
+    	</nav>
+    </header>
+	<div class="new-apple-logo"></div>
+    
+    <div class="user-avatar">
+        <div id="avatar">
+        <a href="#hide" class="hide" id="hide"></a>
+        <a href="#show" class="show" id="show"></a>
+        <div id="cover"></div>
+        <div class="ava-css">
+        <img src="res/img/Lion.gif" />
+        </div>
+        <div class="logName">
+        <p>Hwang EunBi</p>
+        </div>
+        <div id="switch">
+        <div class="validate">
+        <form action="#page">
+        	<input type="password" id="password" placeholder="Password" />
+            <input type="submit" class="submit" />
+            </form>
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+
+<!-- DESKTOP -->
+<div id="page">
+<div class="mmmm">
+     <a id="a" onclick="SSO()">Season</a>
+     <a id="a" onclick="FFO()">File</a>
+     <a id="a" onclick="GGO()">Go</a>
+     <div style="position: fixed; top: 0; right: 1;">
+     <a class="fa fa-user-circle" style="font-size:20px; margin-left:20px;"></a>
+     <a class="fa fa-battery-full" style="font-size:20px; margin-left:20px;"></a>
+</div>
+</div>
+
+
+<div id="SFRW" class="window mac">
+	<nav class="control-window">
+    <a href="#SFRW" class="close" data-rel="SSC">close</a>
+    <a href="#SFRW" class="minimize" data-rel="SSC">close</a>
+    <a href="#SFRW" class="maximize" data-rel="maximize">close</a>
+    </nav>
+    <h1 class="title-mac">Safari</h1>
+    <div class="container">
+  <iframe src="https://bing.com" id="if"></iframe>
+    </div>
+</div> 
+
+<div id="NPW" class="window mac">
+    <nav class="control-window">
+    <a href="#NPW" class="close" data-rel="SSC">close</a>
+    <a href="#NPW" class="minimize" data-rel="SSC">close</a>
+    <a href="#NPW" class="maximize" data-rel="maximize">close</a>
+    </nav>
+    <h1 class="title-mac">Sheet Music</h1>
+    <div class="container">
+  <iframe src="SHT/" id="if" style="color: white;"></iframe>
+    </div>
+</div> 
+
+<div id="XCW" class="window mac">
+    <nav class="control-window">
+    <a href="#XCW" class="close" data-rel="SSC">close</a>
+    <a href="#XCW" class="minimize" data-rel="SSC">close</a>
+    <a href="#XCW" class="maximize" data-rel="maximize">close</a>
+    </nav>
+    <h1 class="title-mac">Xcode</h1>
+    <div class="container">
+  <iframe src="https://www.w3schools.com" id="if"></iframe>
+    </div>
+</div> 
+
+<div id="ITSW" class="window mac">
+    <nav class="control-window">
+    <a href="#ITSW" class="close" data-rel="SSC">close</a>
+    <a href="#ITSW" class="minimize" data-rel="SSC">close</a>
+    <a href="#XCW" class="maximize" data-rel="maximize">close</a>
+    </nav>
+    <h1 class="title-mac">iTunes</h1>
+    <div class="container">
+  <iframe src="it/index.html" id="if"></iframe>
+    </div>
+</div> 
+
+
+<!-- DOCK -->
+<div class="dock">
+	<ul>
+    	<li id="finderr">
+        	<a href="#FNDW" data-rel="SSS">
+            	<em><span>Finder</span></em>
+                <img src="res/img/FinderIcon.png" alt="Finder"/>
+            </a>
+        </li>
+        <li id="safari">
+        	<a href="#SFRW" data-rel="SSS">
+            	<em><span>Safari</span></em>
+                <img src="res/img/Safari.png" alt="Safari"/>
+            </a>
+        </li>
+        <li id="app store">
+            <a href="#APSW" data-rel="SSS">
+                <em><span>App Store</span></em>
+                <img src="res/img/APPS.png" alt="System Preferences"/>
+            </a>
+        </li>
+        <li id="iTunes">
+            <a href="#ITSW" data-rel="SSS">
+                <em><span>iTunes</span></em>
+                <img src="res/img/iTunes.png" alt="System Preferences"/>
+            </a>
+        </li>
+        <li id="SheetMusic">
+        	<a href="#NPW" data-rel="SSS">
+            	<em><span>Sheet Music</span></em>
+                <img src="res/img/MUS.png" alt="Preview"/>
+            </a>
+        </li>
+        <li id="Xcode">
+        	<a href="#XCW" data-rel="SSS">
+            	<em><span>Xcode</span></em>
+                <img src="res/img/xc.png" alt="iTunes"/>
+            </a>
+        </li>
+        <li id="preferences">
+        	<a href="#PFRW" data-rel="SSS">
+            	<em><span>System Preferences</span></em>
+                <img src="res/img/preferences.png" alt="System Preferences"/>
+            </a>
+        </li>
+        <li id="trash">
+        	<a href="#TW" data-rel="SSS">
+            	<em><span>Trash</span></em>
+                <img src="res/img/trash.png" alt="Trash"/>
+            </a>
+        </li>
+    </ul>
+</div>
+
+</div>
+
+<!-- SideBar -->
+<div id="sss" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="SSC()">&times;</a>
+  <div class="overlay-content">
+    <a href="#">Shut Down</a>
+    <a href="#">Log Out</a>
+    <a href="#">Restart</a>
+    <a href="#">Sleep</a>
+  </div>
+</div>
+
+
+<div id="fff" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="FFC()">&times;</a>
+  <div class="overlay-content">
+    <a href="#">New</a>
+    <a href="#">Open</a>
+    <a href="#">Go</a>
+    <a href="#">Delete</a>
+  </div>
+</div>
+
+
+<div id="ggg" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="GGC()">&times;</a>
+  <div class="overlay-content">
+    <a href="#">Desktop</a>
+    <a href="#">Disk(C:)</a>
+    <a href="#">Documents</a>
+    <a href="#">Pictures</a>
+  </div>
+</div>
+
+
+</body>
+</html>
