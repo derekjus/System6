@@ -123,7 +123,7 @@ margin-left:10px;
 
 #myBar {
   width: 1%;
-  height: 3px;
+  height: 2px;
   background-color: white;
   border-radius: 6px;
 }
@@ -137,7 +137,7 @@ function move() {
     i = 1;
     var elem = document.getElementById("myBar");
     var width = 1;
-    var id = setInterval(frame, 90);
+    var id = setInterval(frame, 80);
     function frame() {
       if (width >= 100) {
         clearInterval(id);
