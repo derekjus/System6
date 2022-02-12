@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Thomas Park">
+  <meta name="description" content="A demo of the iTunes 11 Expanding Albums Effect in HTML, CSS, and JS">
+  <link rel="stylesheet" href="css/style.css">
+  <style type="text/css">
+
+  </style>
+  
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="js/mustache.js"></script>
+  <script src="js/jquery.app-folders.js"></script>
+  <script src="js/quantize.js"></script>
+  <script src="js/color-thief.js"></script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-23019901-1']);
+    _gaq.push(['_setDomainName', "thomaspark.me"]);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+  
+</head>
+<body>
+
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+
+      $.ajax({
+        url: "data.json",
+        dataType: 'json',
+        success: function(data) {
+          var albums = Mustache.to_html($('#albums').html(), data);
+          var details = Mustache.to_html($('#details').html(), data);
+          $('.app-folders-container').html(albums+details);     
+          
+          $('.app-folders-container').appFolders({
+            opacity: 1,                 // Opacity of non-selected items
+            marginTopAdjust: true,            // Adjust the margin-top for the folder area based on row selected?
+            marginTopBase: 0,               // If margin-top-adjust is "true", the natural margin-top for the area
+            marginTopIncrement: 0,            // If margin-top-adjust is "true", the absolute value of the increment of margin-top per row
+            animationSpeed: 200,            // Time (in ms) for transitions
+            URLrewrite: true,               // Use URL rewriting?
+            URLbase: "./",            // If URL rewrite is enabled, the URL base of the page where used. Example (include double-quotes): "/services/"
+                  internalLinkSelector: ".jaf-internal a"   // a jQuery selector containing links to content within a jQuery App Folder
+          });
+
+          // For each image:
+          // Once image is loaded, get dominant color and palette and display them.
+          $('.app-icon').bind('load', function (event) {
+            var image = event.target;
+            var $image = $(image);
+            var imageSection = $image.closest('.imageSection');
+
+            var colors = getColors(image);
+            styleBackground(colors[1], $image.parent().parent().attr('id'));
+            styleText(colors[1], colors[0],$image.parent().parent().attr('id'));
+          });
+        }
+      });
+    });
+
+  </script>
+
+
+<body>
+
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+
+      $.ajax({
+        url: "data.json",
+        dataType: 'json',
+        success: function(data) {
+          var albums = Mustache.to_html($('#albums').html(), data);
+          var details = Mustache.to_html($('#details').html(), data);
+          $('.app-folders-container').html(albums+details);     
+          
+          $('.app-folders-container').appFolders({
+            opacity: 1,                 // Opacity of non-selected items
+            marginTopAdjust: true,            // Adjust the margin-top for the folder area based on row selected?
+            marginTopBase: 0,               // If margin-top-adjust is "true", the natural margin-top for the area
+            marginTopIncrement: 0,            // If margin-top-adjust is "true", the absolute value of the increment of margin-top per row
+            animationSpeed: 200,            // Time (in ms) for transitions
+            URLrewrite: true,               // Use URL rewriting?
+            URLbase: "./",            // If URL rewrite is enabled, the URL base of the page where used. Example (include double-quotes): "/services/"
+                  internalLinkSelector: ".jaf-internal a"   // a jQuery selector containing links to content within a jQuery App Folder
+          });
+
+          // For each image:
+          // Once image is loaded, get dominant color and palette and display them.
+          $('.app-icon').bind('load', function (event) {
+            var image = event.target;
+            var $image = $(image);
+            var imageSection = $image.closest('.imageSection');
+
+            var colors = getColors(image);
+            styleBackground(colors[1], $image.parent().parent().attr('id'));
+            styleText(colors[1], colors[0],$image.parent().parent().attr('id'));
+          });
+        }
+      });
+    });
+
+  </script>
+
+
+  <div class="app-folders-container" style="margin-top: 0px;">
+
+    <script id="albums" type="text/x-mustache">
+      {{#data}}
+        {{#first}}
+        <div class='jaf-row jaf-container'>
+        {{/first}}
+          <div class='folder' id='{{id}}'>
+            <a href='#'>
+              <img class='app-icon' src='images/{{image}}'>
+              <p class='album-name'>{{album}}</p>
+              <p class='artist-name'>{{artist}}</p>
+            </a>
+          </div>
+        {{#last}}
+          <br class='clear'>
+        </div>
+        {{/last}}
+      {{/data}}
+
+      </div>
+    </script>
+    <script id="details" type="text/x-mustache">
+      {{#data}}
+        <div class='folderContent {{id}}'>
+          <div class='jaf-container'>
+            <div>
+              <div class='art-wrap'>
+                <img src='images/{{image}}'>
+              </div>
+              <h2><a href="{{url}}" target="_blank" class="primaryColor">{{album}}</a></h2>
+              <h3 class="secondaryColor">{{artist}} ({{year}})</h3>
+              <div class='multi'>
+                <ol class="secondaryColor">
+                  {{#tracklist}}
+                  <li><a href="{{url}}" target="_blank" class="primaryColor">{{.}}</a></li>
+                  {{/tracklist}}
+                </ol>
+              </div>
+            </div>
+            <br class='clear'>
+          </div>
+          <a href="#" class="close">&times;</a>
+        </div>
+      {{/data}} h
+    </script>
+
+
+
+
+
+
+        <div class="jaf-row jaf-container">
+          <div class="folder active-tool" id="LOL" style="opacity: 1;">
+            <a href="index.html">
+              <img class="app-icon" src="ic/a1.jpg">
+              <p class="album-name">LOL</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="FEVER" style="opacity: 1;">
+            <a href="id/fever.html">
+              <img class="app-icon" src="ic/a3.jpg">
+              <p class="album-name">Fever Season</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="WALPURGIS" style="opacity: 1;">
+            <a href="id/walpurgis.html">
+              <img class="app-icon" src="ic/a12.jpg">
+              <p class="album-name">Walpurgis Night</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="snowflake" style="opacity: 1;">
+            <a href="id/snowflake.html">
+              <img class="app-icon" src="ic/a2.jpg">
+              <p class="album-name">SnowFlake</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+
+
+
+
+
+          <br class="clear">
+        </div><div class="folderContent sophtwareslump" style="display: block; background-color: rgb(146, 163, 177);">
+          <div class="jaf-container">
+            <div>
+              <div class="art-wrap" style="box-shadow: rgb(146, 163, 177) 12px 15px 20px inset, rgb(146, 163, 177) -1px -1px 150px inset;">
+                <img src="ic/a1.jpg">
+              </div>
+              <h2><a href="" target="_blank" class="primaryColor" style="color: rgb(0, 0, 0);">LOL</a></h2>
+              <h3 class="secondaryColor" style="color: rgb(0, 0, 0);">여자친구</h3>
+              <div class="multi">
+                <ol class="secondaryColor" style="color: rgb(0, 0, 0);">
+                  <li><a href="g/lol/INTRO.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">Intro.</a></li>
+                  <li><a href="g/lol/물들어요.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">물들어요</a></li>
+                  <li><a href="g/lol/navillera.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">너 그리고 나</a></li>
+                  <li><a href="g/lol/LOL.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">LOL</a></li>
+                  <li><a href="g/lol/한뼘.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">한뼘</a></li>
+                  <li><a href="g/lol/water.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">물꽃놀이</a></li>
+                  <li><a href="g/lol/mermaid.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">Mermaid</a></li>
+                  <li><a href="g/lol/sunshine.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">나의 일기장 </a></li>
+                  <li><a href="g/lol/찰칵.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">찰칵</a></li>
+                  <li><a href="g/lol/나침반.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">나침반</a></li>
+                  <li><a href="g/lol/gone.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">Gone with the wind</a></li>
+                  <li><a href="g/lol/Inst.mp3" class="primaryColor" style="color: rgb(0, 0, 0);">너 그리고 나(inst.)</a></li>
+                </ol>
+              </div>
+            </div>
+            <br class="clear">
+          </div>
+          <a href="#" class="close">×</a>
+        </div>
+
+
+        <div class="jaf-row jaf-container">
+          <div class="folder" id="originofsymmetry" style="opacity: 1;">
+            <a href="id/glass.html">
+              <img class="app-icon" src="ic/a4.jpg">
+              <p class="album-name">Glass Bead</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="yoshimibattlesthepinkrobots" style="opacity: 1;">
+            <a href="id/Parallel.html">
+              <img class="app-icon" src="ic/a5.jpg">
+              <p class="album-name">Parallel</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="kida" style="opacity: 1;">
+            <a href="id/Flower.html">
+              <img class="app-icon" src="ic/a6.jpg">
+              <p class="album-name">Flower Bud</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="agaetisbyrjun" style="opacity: 1;">
+            <a href="id/sunny.html">
+              <img class="app-icon" src="ic/a7.jpg">
+              <p class="album-name">Sunny Summer</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <br class="clear">
+        </div>
+
+       <div class="jaf-row jaf-container">
+          <div class="folder" id="originofsymmetry" style="opacity: 1;">
+            <a href="id/us.html">
+              <img class="app-icon" src="ic/a9.jpg">
+              <p class="album-name">Time For US</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="yoshimibattlesthepinkrobots" style="opacity: 1;">
+            <a href="id/Bam.html">
+              <img class="app-icon" src="ic/a8.jpg">
+              <p class="album-name">Time For The moon night</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="kida" style="opacity: 1;">
+            <a href="id/Sirens.html">
+              <img class="app-icon" src="ic/a11.jpg">
+              <p class="album-name">Song of the Sirens</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <div class="folder" id="agaetisbyrjun" style="opacity: 1;">
+            <a href="id/Rain.html">
+              <img class="app-icon" src="ic/a13.jpg">
+              <p class="album-name">Rainbow</p>
+              <p class="artist-name">여자친구</p>
+            </a>
+          </div>
+          <br class="clear">
+        </div>
+
+
+
+
+            <br class="clear">
+          </div>
+          <a href="#" class="close">×</a>
+        </div>
+    </div>
+
+</body>
+</html>
